@@ -361,7 +361,7 @@
 
     if (signDataUrl) {
     // X, Y, Width, Height → adjust to match your card
-    pdf.addImage(signDataUrl, "PNG", 182, 131, 34, 12);
+    pdf.addImage(signDataUrl, "PNG", 177, 128, 34, 12);
 }
 
     function drawBold(text, x, y, size) {
@@ -455,7 +455,7 @@
     // Block 9: Issuing authority (non-bold in original)
     // drawNormal("Issued, Authority", 90, 147);
     // drawNormal("Signature Of Issuing Authority", 150, 147.00);
-    drawNormal(d.issuingAuth, 105,141,5.6250);
+    drawNormal(d.issuingAuth, 103,141,5.6250);
 
     // === QR code position: same as image block in HIMANSHU5 ===
     // Image block bbox: (5.25, 81.0, 84.0, 155.25) -> width=78.75, height=74.25
@@ -493,9 +493,9 @@
   document.getElementById("btnQr").addEventListener("click", function(){
     const d = collect();
     const payloadObj = {
-      regnNo: d.RegnNo,
-      chassisNo: d.ChassisNo,
-      engineNo: d.EngineNo,
+      RegnNo: d.RegnNo,
+      ChassisNo: d.ChassisNo,
+      EngineNo: d.EngineNo,
       pdf: referencePdfPath
     };
     const payload = JSON.stringify(payloadObj);
