@@ -361,7 +361,7 @@
 
     if (signDataUrl) {
     // X, Y, Width, Height → adjust to match your card
-    pdf.addImage(signDataUrl, "PNG", 182, 131, 34, 12);
+    pdf.addImage(signDataUrl, "PNG", 186, 133, 34, 12);
 }
 
 
@@ -413,13 +413,13 @@
 
     // Block 6: Seat, Stand, Unladen
     drawBold(d.seatCapacity, 122.40,97.50,5.1750);
-    drawBold(d.standCapacity,122.42,104.00,5.1750);
-    drawBold(d.unladen,      205,87.75,5.1750);
+    drawBold(d.standCapacity,122.40,104.00,5.1750);
+    drawBold(d.unladen,      208,86.75,5.1750);
 
     // Block 7: Cubic, Wheel Base, RLW
-    drawBold(d.cubic,      205,93.75,5.1750);
-    drawBold(d.wheelBase,  205,99.75,5.1750);
-    drawBold(d.rlw,        205,105.75,5.1750);
+    drawBold(d.cubic,      208,92.75,5.1750);
+    drawBold(d.wheelBase,  208,98.75,5.1750);
+    drawBold(d.rlw,        208,104.75,5.1750);
 
     // Block 8: Address lines
     drawBold(addr1,        107.0664,115.75,5.1750);
