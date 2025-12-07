@@ -6,25 +6,90 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     * { box-sizing:border-box; }
-    body { font-family: Arial, sans-serif; background:#fff; color:#111; padding:18px; }
-    h1 { text-align:center; margin:6px 0 18px; font-size:22px; }
+    body {
+      font-family: Arial, sans-serif;
+      background:#fff;
+      color:#111;
+      padding:18px;
+    }
+    h1 {
+      text-align:center;
+      margin:6px 0 18px;
+      font-size:22px;
+    }
     .container { max-width:1100px; margin:0 auto; }
-    .form-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:start; }
+
+    .form-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      align-items:start;
+    }
     .field {}
-    label { display:block; font-weight:600; font-size:13px; margin-bottom:4px; }
-    input[type="text"], textarea { width:100%; padding:8px 10px; border:1px solid #d7d7d7; border-radius:4px; font-size:14px; background:#fafafa; }
+    label {
+      display:block;
+      font-weight:600;
+      font-size:13px;
+      margin-bottom:4px;
+    }
+    input[type="text"], textarea {
+      width:100%;
+      padding:8px 10px;
+      border:1px solid #d7d7d7;
+      border-radius:4px;
+      font-size:14px;
+      background:#fafafa;
+    }
     textarea { resize:vertical; }
     input[type="file"] { padding:4px; font-size:13px; }
     .wide { grid-column:1 / 4; }
-    .actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px; }
-    button { border:none; border-radius:4px; padding:9px 16px; font-weight:600; cursor:pointer; min-width:130px; background:#d9534f; color:#fff; }
+
+    .actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin-top:18px;
+    }
+    button {
+      border:none;
+      border-radius:4px;
+      padding:9px 16px;
+      font-weight:600;
+      cursor:pointer;
+      min-width:130px;
+      background:#d9534f;
+      color:#fff;
+    }
     button.secondary { background:#6c757d; }
-    .note { text-align:center; font-size:13px; color:#666; margin-top:8px; }
-    #preview { display:none; border:1px dashed #ccc; padding:10px; border-radius:6px; margin-top:14px; text-align:center; font-size:12px; }
+
+    .note {
+      text-align:center;
+      font-size:13px;
+      color:#666;
+      margin-top:8px;
+    }
+
+    /* Optional on-screen QR preview */
+    #preview {
+      display:none;
+      border:1px dashed #ccc;
+      padding:10px;
+      border-radius:6px;
+      margin-top:14px;
+      text-align:center;
+      font-size:12px;
+    }
     #qrcode { margin:8px auto; }
-    .ocr-filled { background-color: #fff8b3; } /* highlight auto-filled fields */
-    @media (max-width:900px) { .form-grid { grid-template-columns:1fr 1fr; } .wide { grid-column:1 / 3; } }
-    @media (max-width:600px) { .form-grid { grid-template-columns:1fr; } .wide { grid-column:1; } }
+
+    @media (max-width:900px) {
+      .form-grid { grid-template-columns:1fr 1fr; }
+      .wide { grid-column:1 / 3; }
+    }
+    @media (max-width:600px) {
+      .form-grid { grid-template-columns:1fr; }
+      .wide { grid-column:1; }
+    }
   </style>
 </head>
 <body>
@@ -38,174 +103,406 @@
   <!-- FORM -->
   <form id="rcForm">
     <div class="form-grid">
-      <div class="field"><label>Regn No</label><input id="regnNo" type="text" value=""></div>
-      <div class="field"><label>Chassis No</label><input id="chassisNo" type="text" value=""></div>
-      <div class="field"><label>No. Of Cyl</label><input id="noCyc" type="text" value=""></div>
-      <div class="field"><label>Regn Date</label><input id="regnDate" type="text" value=""></div>
-      <div class="field"><label>Engine No</label><input id="engineNo" type="text" value=""></div>
-      <div class="field"><label>Owner Serial</label><input id="ownerSerial" type="text" value=""></div>
-      <div class="field"><label>Manufacturar</label><input id="manufacturar" type="text" value=""></div>
-      <div class="field"><label>Model No</label><input id="modelNo" type="text" value=""></div>
-      <div class="field"><label>Tax Paid Up To</label><input id="taxPaid" type="text" value=""></div>
-      <div class="field"><label>Fuel</label><input id="fuel" type="text" value=""></div>
-      <div class="field"><label>Regd. Owner</label><input id="regdOwner" type="text" value=""></div>
-      <div class="field"><label>Regd. Validity</label><input id="regdValidity" type="text" value=""></div>
-      <div class="field"><label>Vehicle Class</label><input id="vehClass" type="text" value=""></div>
-      <div class="field"><label>S/W/D OF</label><input id="swdOf" type="text" value=""></div>
-      <div class="field"><label>Colour</label><input id="colour" type="text" value=""></div>
-      <div class="field"><label>Body Type</label><input id="bodyType" type="text" value=""></div>
-      <div class="field"><label>ADDRESS</label><textarea id="address" rows="2"></textarea></div>
-      <div class="field"><label>R.L.W</label><input id="rlw" type="text" value=""></div>
-      <div class="field"><label>Seat. Capacity</label><input id="seatCapacity" type="text" value=""></div>
-      <div class="field"><label>Unladen Wt</label><input id="unladenWt" type="text" value=""></div>
-      <div class="field"><label>Issuing Authority</label><input id="issuingAuth" type="text" value=""></div>
-      <div class="field"><label>Stand. Capacity</label><input id="standCapacity" type="text" value=""></div>
-      <div class="field"><label>Cubic Capacity</label><input id="cubic" type="text" value=""></div>
-      <div class="field"><label>PURPOSE</label><input id="purpose" type="text" value=""></div>
-      <div class="field"><label>Manufacturing Dt</label><input id="mfgDt" type="text" value=""></div>
-      <div class="field"><label>Wheel Base</label><input id="wheelBase" type="text" value=""></div>
-      <div class="field"><label>Hypothecated To</label><input id="hypo" type="text" value=""></div>
-      <div class="field wide"><label>Issuing Authority Sign (optional – not in original layout)</label><input id="signFile" type="file" accept="image/*"></div>
+
+      <div class="field">
+        <label>Regn No</label>
+        <input id="regnNo" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Chassis No</label>
+        <input id="chassisNo" type="text" value="">
+      </div>
+      <div class="field">
+        <label>No. Of Cyl</label>
+        <input id="noCyc" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Regn Date</label>
+        <input id="regnDate" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Engine No</label>
+        <input id="engineNo" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Owner Serial</label>
+        <input id="ownerSerial" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Manufacturar</label>
+        <input id="manufacturar" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Model No</label>
+        <input id="modelNo" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Tax Paid Up To</label>
+        <input id="taxPaid" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Fuel</label>
+        <input id="fuel" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Regd. Owner</label>
+        <input id="regdOwner" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Regd. Validity</label>
+        <input id="regdValidity" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Vehicle Class</label>
+        <input id="vehClass" type="text" value="">
+      </div>
+      <div class="field">
+        <label>S/W/D OF</label>
+        <input id="swdOf" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Colour</label>
+        <input id="colour" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Body Type</label>
+        <input id="bodyType" type="text" value="">
+      </div>
+      <div class="field">
+        <label>ADDRESS</label>
+        <textarea id="address" rows="2"> </textarea>
+      </div>
+      <div class="field">
+        <label>R.L.W</label>
+        <input id="rlw" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Seat. Capacity</label>
+        <input id="seatCapacity" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Unladen Wt</label>
+        <input id="unladenWt" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Issuing Authority</label>
+        <input id="issuingAuth" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Stand. Capacity</label>
+        <input id="standCapacity" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Cubic Capacity</label>
+        <input id="cubic" type="text" value="">
+      </div>
+      <div class="field">
+        <label>PURPOSE</label>
+        <input id="purpose" type="text" value="">
+      </div>
+
+      <div class="field">
+        <label>Manufacturing Dt</label>
+        <input id="mfgDt" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Wheel Base</label>
+        <input id="wheelBase" type="text" value="">
+      </div>
+      <div class="field">
+        <label>Hypothecated To</label>
+        <input id="hypo" type="text" value="">
+      </div>
+
+      <div class="field wide">
+        <label>Issuing Authority Sign (optional – not in original layout)</label>
+        <input id="signFile" type="file" accept="image/*">
+      </div>
     </div>
 
     <div class="actions">
       <button type="button" id="btnPdf">Download as PDF</button>
       <button type="reset" class="secondary">Reset</button>
       <button type="button" id="btnQr" class="secondary">Preview QR only</button>
-      <button type="button" id="btnScan" class="secondary">Scan Document</button>
     </div>
   </form>
 
+  <!-- Optional QR preview on screen -->
   <div id="preview">
     <div id="qrcode"></div>
     <div id="qrPayload"></div>
   </div>
-  <p class="note">QR encodes Regn No, Chassis No, Engine No, and the path to Credentials</p>
+  <p class="note">
+    QR encodes Regn No, Chassis No, Engine No, and the path to Credentials
+  </p>
 </div>
 
 <!-- Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
 
 <script>
-const referencePdfPath = "System.Pdf";
+  // Your reference PDF (for QR payload + "Open" button)
+  const referencePdfPath = "System.Pdf";
 
-function collect() {
-  return {
-    regnNo: document.getElementById("regnNo").value.trim(),
-    regnDate: document.getElementById("regnDate").value.trim(),
-    manufact: document.getElementById("manufacturar").value.trim(),
-    fuel: document.getElementById("fuel").value.trim(),
-    vehClass: document.getElementById("vehClass").value.trim(),
-    bodyType: document.getElementById("bodyType").value.trim(),
-    seatCapacity: document.getElementById("seatCapacity").value.trim(),
-    standCapacity: document.getElementById("standCapacity").value.trim(),
-    mfgDt: document.getElementById("mfgDt").value.trim(),
-    chassisNo: document.getElementById("chassisNo").value.trim(),
-    engineNo: document.getElementById("engineNo").value.trim(),
-    modelNo: document.getElementById("modelNo").value.trim(),
-    hypoto: document.getElementById("hypo").value.trim(),
-    ownerSerial: document.getElementById("ownerSerial").value.trim(),
-    taxPaid: document.getElementById("taxPaid").value.trim(),
-    colour: document.getElementById("colour").value.trim(),
-    regdOwner: document.getElementById("regdOwner").value.trim(),
-    swdof: document.getElementById("swdOf").value.trim(),
-    addr: document.getElementById("address").value.trim(),
-    rlw: document.getElementById("rlw").value.trim(),
-    unladen: document.getElementById("unladenWt").value.trim(),
-    issuingAuth: document.getElementById("issuingAuth").value.trim(),
-    regdValidity: document.getElementById("regdValidity").value.trim(),
-    signatureFile: document.getElementById("signFile").files[0],
-    purpose: document.getElementById("purpose").value.trim(),
-    cubic: document.getElementById("cubic").value.trim(),
-    noCyc: document.getElementById("noCyc").value.trim(),
-    wheelBase: document.getElementById("wheelBase").value.trim()
-  };
+  function collect() {
+    return {
+      regnNo: document.getElementById("regnNo").value.trim(),
+      regnDate: document.getElementById("regnDate").value.trim(),
+      manufact: document.getElementById("manufacturar").value.trim(),
+      fuel: document.getElementById("fuel").value.trim(),
+      vehClass: document.getElementById("vehClass").value.trim(),
+      bodyType: document.getElementById("bodyType").value.trim(),
+      seatCapacity: document.getElementById("seatCapacity").value.trim(),
+      standCapacity: document.getElementById("standCapacity").value.trim(),
+      mfgDt: document.getElementById("mfgDt").value.trim(),
+      chassisNo: document.getElementById("chassisNo").value.trim(),
+      engineNo: document.getElementById("engineNo").value.trim(),
+      modelNo: document.getElementById("modelNo").value.trim(),
+      hypoto: document.getElementById("hypo").value.trim(),
+      ownerSerial: document.getElementById("ownerSerial").value.trim(),
+      taxPaid: document.getElementById("taxPaid").value.trim(),
+      colour: document.getElementById("colour").value.trim(),
+      regdOwner: document.getElementById("regdOwner").value.trim(),
+      swdof: document.getElementById("swdOf").value.trim(),
+      addr: document.getElementById("address").value.trim(),
+      rlw: document.getElementById("rlw").value.trim(),
+      unladen: document.getElementById("unladenWt").value.trim(),
+      issuingAuth: document.getElementById("issuingAuth").value.trim(),
+      regdValidity: document.getElementById("regdValidity").value.trim(),
+      signatureFile: document.getElementById("signFile").files[0],
+      purpose: document.getElementById("purpose").value.trim(),
+      cubic: document.getElementById("cubic").value.trim(),
+      noCyc: document.getElementById("noCyc").value.trim(),
+      wheelBase: document.getElementById("wheelBase").value.trim()
+    };
+  }
+
+  function splitValidity(v) {
+    if (!v) return ["", ""];
+    const parts = v.trim().split(/\s+/);
+    if (parts.length === 1) return [v, ""];
+    return [parts[0], parts.slice(1).join(" ")];
+  }
+
+  function splitAddress(addr) {
+    if (!addr) return ["",""];
+    if (addr.includes("\n")) {
+      const lines = addr.split("\n");
+      return [lines[0], lines.slice(1).join(" ")];
+    }
+    const idx = addr.indexOf(",");
+    if (idx > -1) return [addr.slice(0,idx), addr.slice(idx+1)];
+    return [addr,""];
+  }
+
+  function loadImageAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) return resolve(null);
+
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+      reader.onerror = e => reject(e);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Generate QR into hidden div and return DataURL
+  function generateQrDataUrl(text) {
+    return new Promise((resolve, reject) => {
+      const temp = document.createElement("div");
+      temp.style.position = "fixed";
+      temp.style.left = "-9999px";
+      temp.style.top = "-9999px";
+      document.body.appendChild(temp);
+
+      new QRCode(temp, {
+        text: text,
+        width: 117,
+        height: 117,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      setTimeout(() => {
+        const canvas = temp.querySelector("canvas");
+        const img = temp.querySelector("img");
+        let dataUrl = "";
+        if (canvas) {
+          dataUrl = canvas.toDataURL("image/png");
+        } else if (img) {
+          dataUrl = img.src;
+        }
+        document.body.removeChild(temp);
+        if (dataUrl) resolve(dataUrl);
+        else reject(new Error("QR generation failed"));
+      }, 300);
+    });
+  }
+
+  async function createPdf() {
+    const d = collect();
+    const { jsPDF } = window.jspdf;
+
+    // Exact page size from HIMANSHU5: 594.96 x 841.92 pt
+    const pdf = new jsPDF({
+      unit: "pt",
+      format: [594.95996, 841.91998]
+    });
+
+    // Load signature image first
+    const signDataUrl = await loadImageAsDataURL(d.signatureFile);
+
+    if (signDataUrl) {
+    // X, Y, Width, Height → adjust to match your card
+    pdf.addImage(signDataUrl, "PNG", 186, 133, 34, 12);
 }
 
-// --- PDF Generation Function (same as your original) ---
-async function createPdf() { /* ... your existing PDF code ... */ }
 
-// --- Button listeners ---
-document.getElementById("btnPdf").addEventListener("click", () => createPdf());
-document.getElementById("btnQr").addEventListener("click", () => {
-  const d = collect();
-  const payload = JSON.stringify({regnNo:d.regnNo,chassisNo:d.chassisNo,engineNo:d.engineNo,pdf:referencePdfPath});
-  document.getElementById("preview").style.display = "block";
-  document.getElementById("qrPayload").textContent = payload;
-  const el = document.getElementById("qrcode");
-  el.innerHTML = "";
-  new QRCode(el, { text: payload, width: 170, height: 170, correctLevel: QRCode.CorrectLevel.H });
-});
-document.getElementById("rcForm").addEventListener("reset", () => {
-  setTimeout(()=>{
-    document.getElementById("preview").style.display="none";
-    document.getElementById("qrcode").innerHTML="";
-    document.getElementById("qrPayload").textContent="";
-    // Remove highlights
-    document.querySelectorAll('.ocr-filled').forEach(el => el.classList.remove('ocr-filled'));
-  },0);
-});
+    function drawBold(text, x, y, size) {
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(size);
+      if (text) pdf.text(String(text), x, y);
+    }
+    function drawNormal(text, x, y, size=4.8) {
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(size);
+      if (text) pdf.text(String(text), x, y);
+    }
 
-// --- OCR Scan Button ---
-document.getElementById("btnScan").addEventListener("click", async () => {
-  const input = document.createElement("input");
-  input.type = "file"; input.accept = "image/*"; input.capture = "environment";
-  input.onchange = async e => {
-    const file = e.target.files[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onload = async evt => {
-      const dataUrl = evt.target.result;
-      const { data: { text } } = await Tesseract.recognize(dataUrl, 'eng', { logger: m => console.log(m) });
-      console.log("OCR Result:", text);
-      const setField = (id, pattern) => {
-        const el = document.getElementById(id);
-        const match = text.match(pattern);
-        if(match) {
-          el.value = match[1].trim();
-          el.classList.add("ocr-filled"); // highlight
-          el.addEventListener("input", () => el.classList.remove("ocr-filled"), { once:true });
-        }
-      };
-      setField("regnNo", /Regn(?:istration)? No[:\s]*([A-Z0-9-]+)/i);
-      setField("chassisNo", /Chassis No[:\s]*([A-Z0-9-]+)/i);
-      setField("engineNo", /Engine No[:\s]*([A-Z0-9-]+)/i);
-      setField("modelNo", /Model No[:\s]*([A-Z0-9-]+)/i);
-      setField("manufacturar", /Manufacturar[:\s]*([A-Z0-9 ]+)/i);
-      setField("mfgDt", /Mfg(?:uring)? Dt[:\s]*([0-9\/-]+)/i);
-      setField("regdOwner", /Owner(?: Name)?[:\s]*([A-Z ]+)/i);
-      setField("swdOf", /S\/W\/D OF[:\s]*([A-Z ]+)/i);
-      setField("fuel", /Fuel[:\s]*([A-Z]+)/i);
-      setField("vehClass", /Vehicle Class[:\s]*([A-Z ]+)/i);
-      setField("bodyType", /Body Type[:\s]*([A-Z ]+)/i);
-      setField("colour", /Colour[:\s]*([A-Z ]+)/i);
-      setField("seatCapacity", /Seat(?:ing)? Capacity[:\s]*([0-9]+)/i);
-      setField("standCapacity", /Stand(?:ing)? Capacity[:\s]*([0-9]+)/i);
-      setField("unladenWt", /Unladen Wt[:\s]*([0-9]+)/i);
-      setField("rlw", /R\.L\.W[:\s]*([0-9]+)/i);
-      setField("taxPaid", /Tax Paid Up To[:\s]*([0-9\/-]+)/i);
-      setField("regdValidity", /Regd\. Validity[:\s]*([0-9\/-]+)/i);
-      setField("issuingAuth", /Issuing Authority[:\s]*([A-Z ]+)/i);
-      setField("hypo", /Hypothecated To[:\s]*([A-Z0-9 ]+)/i);
-      setField("ownerSerial", /Owner Serial[:\s]*([A-Z0-9]+)/i);
-      setField("cubic", /Cubic Capacity[:\s]*([0-9]+)/i);
-      setField("noCyc", /No\. Of Cyl[:\s]*([0-9]+)/i);
-      setField("wheelBase", /Wheel Base[:\s]*([0-9]+)/i);
-      setField("purpose", /PURPOSE[:\s]*([A-Z ]+)/i);
-      const addrMatch = text.match(/ADDRESS[:\s]*([\s\S]*?)\n(?:R\.L\.W|Seat)/i);
-      if(addrMatch) {
-        const addrEl = document.getElementById("address");
-        addrEl.value = addrMatch[1].trim();
-        addrEl.classList.add("ocr-filled");
-        addrEl.addEventListener("input", () => addrEl.classList.remove("ocr-filled"), { once:true });
-      }
-      alert("OCR auto-filled and highlighted fields! Edit to remove highlights.");
+    const [val1, val2] = splitValidity();
+    const [addr1, addr2] = splitAddress(d.addr);
+
+    // === Text positions & sizes taken from HIMANSHU5 ===
+
+    // Block 0: Regn No, Owner, S/W/D
+    drawBold(d.regnNo,         46.9609,  9.0,  5.1750);
+    drawBold(d.regdOwner,      46.9609, 15.0,  5.1750);
+    drawBold(d.swdof,          46.9609, 21.75, 5.1750);
+
+    // Block 1: Regn Date + Validity (split into two parts)
+    drawBold(d.mfgDt, 132, 33.75,5.1750)
+    drawBold(d.regnDate,   46.9609, 33.75, 5.1750);
+    drawBold(val1,        138.9961, 33.75, 5.1750);
+    drawBold(val2,        200.3359, 33.75, 5.1750);
+
+    // Block 2: Colour, Fuel, Vehicle Class, Body Type, Manufacturer
+    drawBold(d.colour,     46.9609, 39.75, 4.3500);
+    drawBold(d.fuel,       46.9609, 44.25, 4.3500);
+    drawBold(d.vehClass,   46.9609, 49.50, 4.3500);
+    drawBold(d.bodyType,   46.9609, 54.75, 4.3500);
+    drawBold(d.manufact,   46.9609, 60.00, 4.3500);
+
+    // Block 3: Chassis, Engine, Model
+    drawBold(d.chassisNo,  46.9609, 66.00, 5.1750);
+    drawBold(d.engineNo,   46.9609, 72.00, 5.1750);
+    drawBold(d.modelNo,    46.9609, 78.00, 5.1750);
+
+    // Block 5: Hypothecated To, Owner Serial, Tax Paid
+    drawBold(d.hypoto,     120.40, 83.75, 4.7250);
+    drawBold(d.noCyc, 166, 97.50, 4.7250);
+    drawBold(d.ownerSerial,166, 104.00, 5.1750);
+    drawBold(d.taxPaid,    203, 26.75, 5.1750);
+    drawBold(d.regdValidity, 203,33.75,5.1750);
+
+    // Block 6: Seat, Stand, Unladen
+    drawBold(d.seatCapacity, 122.40,97.50,5.1750);
+    drawBold(d.standCapacity,122.40,104.00,5.1750);
+    drawBold(d.unladen,      208,86.75,5.1750);
+
+    // Block 7: Cubic, Wheel Base, RLW
+    drawBold(d.cubic,      208,92.75,5.1750);
+    drawBold(d.wheelBase,  208,98.75,5.1750);
+    drawBold(d.rlw,        208,104.75,5.1750);
+
+    // Block 8: Address lines
+    drawBold(addr1,        107.0664,115.75,5.1750);
+    drawBold(addr2,        107.0664,121.75,5.1750);
+
+    // Block 9: Issuing authority (non-bold in original)
+    // drawNormal("Issued, Authority", 90, 147);
+    // drawNormal("Signature Of Issuing Authority", 150, 147.00);
+    drawNormal(d.issuingAuth, 105,141,5.6250);
+    // === QR code position: same as image block in HIMANSHU5 ===
+    const qrPayloadObj = {
+      RegnNo: d.regnNo || "",
+      ChassisNo: d.chassisNo || "",
+      EngineNo: d.engineNo || "",
+      RegnDate: d.regnDate || "",
+      pdf: referencePdfPath
     };
-    reader.readAsDataURL(file);
-  };
-  input.click();
-});
+    const qrText = JSON.stringify(qrPayloadObj);
+
+    try {
+      const qrDataUrl = await generateQrDataUrl(qrText);
+      if (qrDataUrl) {
+        const qrX = 4.10;
+        const qrY = 80.75;
+        const qrW = 74.00;
+        const qrH = 74.00;
+        pdf.addImage(qrDataUrl, "PNG", qrX, qrY, qrW, qrH);
+      }
+    } catch (e) {
+      console.error("QR error:", e);
+    }
+
+    const fileName = (d.regnNo || "RC_output").replace(/\s+/g,"_") + ".pdf";
+    pdf.save(fileName);
+  }
+
+  // Download PDF
+  document.getElementById("btnPdf").addEventListener("click", function(){
+    createPdf();
+  });
+
+  // Optional QR preview on screen
+  document.getElementById("btnQr").addEventListener("click", function(){
+    const d = collect();
+    const payloadObj = {
+      RegnNo: d.regnNo || "",
+      ChassisNo: d.chassisNo || "",
+      EngineNo: d.engineNo || "",
+      RegnDate: d.regnDate || "",
+      pdf: referencePdfPath
+    };
+    const payload = JSON.stringify(payloadObj);
+
+    const prev = document.getElementById("preview");
+    prev.style.display = "block";
+    document.getElementById("qrPayload").textContent = payload;
+
+    const el = document.getElementById("qrcode");
+    el.innerHTML = "";
+    new QRCode(el, {
+      text: payload,
+      width: 170,
+      height: 170,
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  });
+
+  // Open reference PDF (only attach if the button exists)
+  const btnOpen = document.getElementById("btnOpen");
+  if (btnOpen) {
+    btnOpen.addEventListener("click", function(){
+      window.open(referencePdfPath, "_blank");
+    });
+  }
+
+  // Reset: hide QR preview
+  document.getElementById("rcForm").addEventListener("reset", function(){
+    setTimeout(() => {
+      document.getElementById("preview").style.display = "none";
+      document.getElementById("qrcode").innerHTML = "";
+      document.getElementById("qrPayload").textContent = "";
+    }, 0);
+  });
 </script>
 </body>
 </html>
