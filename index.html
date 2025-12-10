@@ -391,7 +391,7 @@
 
 
     function drawBold(text, x, y, size) {
-      pdf.setFont("helvetica", "bold");
+      pdf.setFont("helvetica", "normal");
       pdf.setFontSize(size);
       if (text) pdf.text(String(text), x, y);
     }
@@ -408,27 +408,27 @@
     // === Text positions & sizes taken from HIMANSHU5 ===
 
     // Block 0: Regn No, Owner, S/W/D
-    drawBold(d.regnNo,         46.9609,  9.0,  5.1750);
-    drawBold(d.regdOwner,      46.9609, 15.0,  5.1750);
-    drawBold(d.swdof,          46.9609, 21.75, 5.1750);
+    drawBold(d.regnNo,         42.9609,  9.0,  5.1750);
+    drawBold(d.regdOwner,      42.9609, 15.0,  5.1750);
+    drawBold(d.swdof,          42.9609, 21.75, 5.1750);
 
     // Block 1: Regn Date + Validity (split into two parts)
     drawBold(d.mfgDt, 132, 33.75,5.1750)
-    drawBold(d.regnDate,   46.9609, 33.75, 5.1750);
+    drawBold(d.regnDate,   42.9609, 33.75, 5.1750);
     drawBold(val1,        138.9961, 33.75, 5.1750);
     drawBold(val2,        200.3359, 33.75, 5.1750);
 
     // Block 2: Colour, Fuel, Vehicle Class, Body Type, Manufacturer
-    drawBold(d.colour,     46.9609, 39.75, 4.3500);
-    drawBold(d.fuel,       46.9609, 44.25, 4.3500);
-    drawBold(d.vehClass,   46.9609, 49.50, 4.3500);
-    drawBold(d.bodyType,   46.9609, 54.75, 4.3500);
-    drawBold(d.manufact,   46.9609, 60.00, 4.3500);
+    drawBold(d.colour,     42.9609, 39.75, 4.3500);
+    drawBold(d.fuel,       42.9609, 44.25, 4.3500);
+    drawBold(d.vehClass,   42.9609, 49.50, 4.3500);
+    drawBold(d.bodyType,   42.9609, 54.75, 4.3500);
+    drawBold(d.manufact,   42.9609, 60.00, 4.3500);
 
     // Block 3: Chassis, Engine, Model
-    drawBold(d.chassisNo,  46.9609, 66.00, 5.1750);
-    drawBold(d.engineNo,   46.9609, 72.00, 5.1750);
-    drawBold(d.modelNo,    46.9609, 78.00, 5.1750);
+    drawBold(d.chassisNo,  42.9609, 66.00, 5.1750);
+    drawBold(d.engineNo,   42.9609, 72.00, 5.1750);
+    drawBold(d.modelNo,    42.9609, 78.00, 5.1750);
 
     // Block 5: Hypothecated To, Owner Serial, Tax Paid
     drawBold(hyp1,120.4,83.75,4.725);
