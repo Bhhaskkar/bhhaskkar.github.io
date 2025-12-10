@@ -218,7 +218,7 @@
       </div>
       <div class="field">
         <label>Hypothecated To</label>
-        <input id="hypo" type="text" value="">
+        <textarea id="hypo"  rows="2"></textarea>
       </div>
 
       <div class="field wide">
@@ -293,15 +293,40 @@
   }
 
   function splitAddress(addr) {
-    if (!addr) return ["",""];
-    if (addr.includes("\n")) {
-      const lines = addr.split("\n");
-      return [lines[0], lines.slice(1).join(" ")];
-    }
-    const idx = addr.indexOf(",");
-    if (idx > -1) return [addr.slice(0,idx), addr.slice(idx+1)];
-    return [addr,""];
-  }
+  if (!addr) return ["", "", ""];
+
+  // Normalize line breaks and commas
+  addr = addr.replace(/\r/g, "").trim();
+
+  // If user entered multiple lines manually
+  let parts = addr.split(/\n|,/).map(s => s.trim()).filter(s => s !== "");
+
+  // Ensure exactly 3 lines
+  return [
+    parts[0] || "",
+    parts[1] || "",
+    parts.slice(2).join(" ") || ""
+  ];
+}
+
+  function splitHypoto(hypoto) {
+  if (!hypoto) return ["", "", ""];
+
+  // Normalize
+  hypoto = hypoto.replace(/\r/g, "").trim();
+
+  // Split by newline OR comma
+  let parts = hypoto.split(/\n|,/)
+    .map(s => s.trim())
+    .filter(s => s !== "");
+
+  // Return exactly 3 lines
+  return [
+    parts[0] || "",
+    parts[1] || "",
+    parts.slice(2).join(" ") || ""
+  ];
+}
 
   function loadImageAsDataURL(file) {
     return new Promise((resolve, reject) => {
@@ -377,7 +402,8 @@
     }
 
     const [val1, val2] = splitValidity();
-    const [addr1, addr2] = splitAddress(d.addr);
+    const [addr1, addr2, addr3] = splitAddress(d.addr);
+    const [hyp1, hyp2] = splitHypoto(d.hypoto);
 
     // === Text positions & sizes taken from HIMANSHU5 ===
 
@@ -405,7 +431,8 @@
     drawBold(d.modelNo,    46.9609, 78.00, 5.1750);
 
     // Block 5: Hypothecated To, Owner Serial, Tax Paid
-    drawBold(d.hypoto,     120.40, 83.75, 4.7250);
+    drawBold(hyp1,120.4,83.75,4.725);
+    drawBold(hyp2,120.4,89.75,4.725);
     drawBold(d.noCyc, 166, 97.50, 4.7250);
     drawBold(d.ownerSerial,166, 104.00, 5.1750);
     drawBold(d.taxPaid,    203, 26.75, 5.1750);
@@ -424,6 +451,7 @@
     // Block 8: Address lines
     drawBold(addr1,        107.0664,115.75,5.1750);
     drawBold(addr2,        107.0664,121.75,5.1750);
+    drawBold(addr3,107.0664,127.75,5.175);
 
     // Block 9: Issuing authority (non-bold in original)
     // drawNormal("Issued, Authority", 90, 147);
